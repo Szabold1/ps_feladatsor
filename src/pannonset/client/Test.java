@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import pannonset.client.panels.Feladat1;
 import pannonset.client.panels.Feladat2;
 import pannonset.client.panels.Feladat3;
+import pannonset.client.panels.Feladat4;
 
 public class Test implements EntryPoint {
 
@@ -31,6 +32,7 @@ public class Test implements EntryPoint {
 		tp.add(new Feladat1("1.feladat"));
 		tp.add(new Feladat2("2.feladat"));
 		tp.add(new Feladat3("3.feladat"));
+		tp.add(new Feladat4("4.feladat"));
 		
 		tp.setSelection(tp.getItem(tp.getItemCount() -1)); // mindig a legutolsó legyen megnyitva alapból
 
