@@ -60,8 +60,6 @@ public class Feladat4 extends TabItem {
 			List<Button> rowButtons = new ArrayList<Button>();
 			
 			for (int col = 0; col < NB_COLS; col++) {
-				LayoutContainer buttonContainer = new LayoutContainer();
-				buttonContainer.setSize(BTN_SIZE, BTN_SIZE);
 				
 				Button btn = new Button("1");
 				btn.setSize(BTN_SIZE, BTN_SIZE);
@@ -77,8 +75,7 @@ public class Feladat4 extends TabItem {
 				});
 				
 				rowButtons.add(btn);
-				buttonContainer.add(btn);
-				rowContainer.add(buttonContainer);
+				rowContainer.add(btn);
 			}
 			
 			buttons.add(rowButtons);
