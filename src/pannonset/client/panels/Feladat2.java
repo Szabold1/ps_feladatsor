@@ -24,37 +24,37 @@ public class Feladat2 extends TabItem {
 		StringBuilder reversed = new StringBuilder();
 		
 		for (int i = str.length() - 1; i >= 0; i--) {
-	        reversed.append(str.charAt(i));
+			reversed.append(str.charAt(i));
 		}
 		
 		return reversed.toString();
 	}
 	
 	private void handleBtnClick(TextField<String> textField, int btnNumber) {
-        String reversed = reverseStr(textField.getValue());
-        
-        if (reversed == null) {
-            MessageBox.alert("Error", "Please enter some text!", null);
-            return;
-        }
-        
-        switch(btnNumber) {
-        case 1:
-        	MessageBox.alert("Title for MessageBox.alert", reversed, null);
-          break;
-        case 2:
-          Info.display("Title for Info.display", reversed);
-          break;
-        case 3:
-        	Window window = new Window();
-        	window.setHeading("GXT Window Heading");
-        	window.setSize(400, 200);
-        	window.add(new Label(reversed));
-        	window.show();
-        	break;
-        default:
-        	MessageBox.alert("Title", reversed, null);
-      }
+		String reversed = reverseStr(textField.getValue());
+		
+		if (reversed == null) {
+			MessageBox.alert("Error", "Please enter some text!", null);
+			return;
+		}
+		
+		switch(btnNumber) {
+		case 1:
+			MessageBox.alert("Title for MessageBox.alert", reversed, null);
+			break;
+		case 2:
+			Info.display("Title for Info.display", reversed);
+			break;
+		case 3:
+			Window window = new Window();
+			window.setHeading("GXT Window Heading");
+			window.setSize(400, 200);
+			window.add(new Label(reversed));
+			window.show();
+			break;
+		default:
+			MessageBox.alert("Title", reversed, null);
+		}
 	}
 	
 	@Override
@@ -66,20 +66,20 @@ public class Feladat2 extends TabItem {
 		textField.setAllowBlank(false);  
 		textField.setEmptyText("Enter some text here");
 		
-        // Add buttons and handle clicks on them
-		Button b1 = new Button("Gomb1", new SelectionListener<ButtonEvent>() {
+		// Add buttons and handle clicks on them
+		Button b1 = new Button("MessageBox.alert", new SelectionListener<ButtonEvent>() {
 			@Override
 			public void componentSelected(ButtonEvent ce) {
 				handleBtnClick(textField, 1);
 			}  
 		});
-		Button b2 = new Button("Gomb2", new SelectionListener<ButtonEvent>() {
+		Button b2 = new Button("Info.display", new SelectionListener<ButtonEvent>() {
 			@Override
 			public void componentSelected(ButtonEvent ce) {
 				handleBtnClick(textField, 2);
 			}  
 		});
-		Button b3 = new Button("Gomb3", new SelectionListener<ButtonEvent>() {
+		Button b3 = new Button("GXT Window", new SelectionListener<ButtonEvent>() {
 			@Override
 			public void componentSelected(ButtonEvent ce) {
 				handleBtnClick(textField, 3);

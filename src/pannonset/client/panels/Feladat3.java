@@ -20,7 +20,7 @@ public class Feladat3 extends TabItem {
 		LayoutContainer container = new LayoutContainer();
 		container.setSize("100%", "100%");
 		
-        container.addListener(Events.OnClick, new Listener<ComponentEvent>() {
+		container.addListener(Events.OnClick, new Listener<ComponentEvent>() {
 			@Override
 			public void handleEvent(ComponentEvent event) {
 				int x = event.getClientX();
@@ -34,6 +34,6 @@ public class Feladat3 extends TabItem {
 			}
 		});
 		
-		add(container);
+		this.add(container);
 	}
 }
