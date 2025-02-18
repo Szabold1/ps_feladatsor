@@ -5,6 +5,7 @@ import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
+import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.google.gwt.core.client.GWT;
@@ -18,20 +19,21 @@ import com.google.gwt.user.client.Window;
 
 
 public class Feladat6 extends TabItem {
-	private TextField<Integer> num1Field;
-	private TextField<Integer> num2Field;
+	private NumberField num1Field;
+	private NumberField num2Field;
 	private TextField<String> operation;
 	private TextField<String> resultField;
-	private Button calculateBtn;
+	private Button calculateBtnGet;
+	private Button calculateBtnPost;
 	
 	public Feladat6(String text) {
 		this.setText(text);
 		
-		num1Field = new TextField<Integer>();
+		num1Field = new NumberField();
 		num1Field.setEmptyText("1.szám");
 		num1Field.setAllowBlank(false);
 		
-		num2Field = new TextField<Integer>();
+		num2Field = new NumberField();
 		num2Field.setEmptyText("2.szám");
 		num2Field.setAllowBlank(false);
 		
@@ -41,52 +43,65 @@ public class Feladat6 extends TabItem {
 		resultField = new TextField<String>();
 		resultField.setEnabled(false);
 		
-		calculateBtn = new Button("Számol");
-		calculateBtn.addListener(Events.OnClick, new Listener<ComponentEvent>() {
+		calculateBtnGet = new Button("Számol (GET)");
+		calculateBtnGet.addListener(Events.OnClick, new Listener<ComponentEvent>() {
 			@Override
 			public void handleEvent(ComponentEvent event) {
-				sendRequest();
+				sendRequest("GET");
+			}
+		});
+		
+		calculateBtnPost = new Button("Számol (POST)");
+		calculateBtnPost.addListener(Events.OnClick, new Listener<ComponentEvent>() {
+			@Override
+			public void handleEvent(ComponentEvent event) {
+				sendRequest("POST");
 			}
 		});
 	}
 	
-	private void sendRequest() {
-		String num1 = num1Field.getRawValue();
-		String num2 = num2Field.getRawValue();
+	private void sendRequest(String method) {
+		Number num1 = num1Field.getValue();
+		Number num2 = num2Field.getValue();
 		String operationValue = operation.getRawValue();
 		
 		// check for empty input
-		if (num1 == null || num2 == null || num1.isEmpty() || num2.isEmpty()) {
-            MessageBox.alert("Hiba", "Mindkét mezőt ki kell tölteni!", null);
+		if (num1 == null || num2 == null) {
+            MessageBox.alert("Hiba", "Az első két mezőt ki kell tölteni!", null);
             return;
         }
 		
-		// check if the values are integers
-		try {
-			Integer.parseInt(num1);
-			Integer num2Int = Integer.parseInt(num2);
-			if (num2Int < 0) {
-				MessageBox.alert("Hiba", "A második szám nem lehet negatív!", null);
-				return;
-			}
-		} catch (NumberFormatException e) {
-			MessageBox.alert("Hiba", "Érvénytelen szám(ok)!", null);
+		// check if the num2 is negative
+		if (num2 instanceof Double && (Double) num2 < 0) {
+			MessageBox.alert("Hiba", "A második szám nem lehet negatív!", null);
 			return;
 		}
 		
 		// check if operation is valid
-		if (!operationValue.equals("") && !operationValue.equals("+") && !operationValue.equals("-")
+		if (!operationValue.isEmpty() && !operationValue.equals("+") && !operationValue.equals("-")
 				&& !operationValue.equals("%") && !operationValue.equals("*")) {
 			MessageBox.alert("Hiba", "Érvénytelen művelet! Csak a következő műveletek engedélyezettek: +, -, %, *", null);
 			return;
 		}
 		
-		String url = GWT.getHostPageBaseURL()
-				+ "szamologep.php?num1=" + num1 + "&num2=" + num2 + "&operation=" + operationValue;
-		RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
+		String url = GWT.getHostPageBaseURL() + "szamologep.php";
+		String dataToSend = "num1=" + num1 +
+							"&num2=" + num2 +
+							"&operation=" + URL.encodeQueryString(operationValue);
+		RequestBuilder requestBuilder;
 		
+		// handle GET and POST request
+		if (method.equalsIgnoreCase("GET")) {
+			url += "?" + dataToSend;
+			requestBuilder = new RequestBuilder(RequestBuilder.GET, url);
+		} else {
+			requestBuilder = new RequestBuilder(RequestBuilder.POST, url);
+			requestBuilder.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		}
+
+		// send request
 		try {
-			requestBuilder.sendRequest(null, new RequestCallback() {
+			requestBuilder.sendRequest(method.equalsIgnoreCase("GET") ? null : dataToSend, new RequestCallback() {
 				@Override
 				public void onResponseReceived(Request request, Response response) {
 					if (response.getStatusCode() == 200) {
@@ -113,6 +128,7 @@ public class Feladat6 extends TabItem {
 		add(num2Field);
 		add(operation);
 		add(resultField);
-		add(calculateBtn);
+		add(calculateBtnGet);
+		add(calculateBtnPost);
 	}
 }

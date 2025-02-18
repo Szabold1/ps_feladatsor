@@ -27,7 +27,7 @@ public class Feladat5 extends TabItem {
 		super.onRender(parent, index);
 		
 		String url = GWT.getHostPageBaseURL() + "alapok.php";
-		RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
+		RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.GET, url);
 		
 		try {
 			requestBuilder.sendRequest(null, new RequestCallback() {
