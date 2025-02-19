@@ -16,7 +16,6 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -73,8 +72,8 @@ public class Feladat7 extends TabItem {
 			public void handleEvent(ButtonEvent event) {
 				BaseModelData newData = new BaseModelData();
 				store.add(newData);
-				}
-			});
+			}
+		});
 		toolBar.add(btnNew);
 		
 		Button btnDelete = new Button("Törlés");
@@ -95,11 +94,10 @@ public class Feladat7 extends TabItem {
 			newData.set("name", "New User" + i);
 			newData.set("nickname", "Nick" + i);
 			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(new Date());
-			calendar.add(Calendar.YEAR, -(i + 10));
+			long yearsInMillis = (long) (i + 10) * 365 * 24 * 60 * 60 * 1000L;
+			Date birthdate = new Date(System.currentTimeMillis() - yearsInMillis);
 			
-			newData.set("birthdate", calendar.getTime());
+			newData.set("birthdate", birthdate);
 			newData.set("age", i + 10);
 			newData.set("favNum", (new Random()).nextInt(100));
 			

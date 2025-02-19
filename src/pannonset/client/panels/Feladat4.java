@@ -29,7 +29,7 @@ public class Feladat4 extends TabItem {
 		Button clickedBtn = buttons.get(row).get(col);
 		int value = Integer.parseInt(clickedBtn.getText());
  
-        // update the values in the same row and column
+		// update the values in the same row and column
 		for (int i = 0; i < NB_ROWS; i++) {
 			for (int j = 0; j < NB_COLS; j++) {
 				if (i == row || j == col) {

@@ -67,9 +67,9 @@ public class Feladat6 extends TabItem {
 		
 		// check for empty input
 		if (num1 == null || num2 == null) {
-            MessageBox.alert("Hiba", "Az első két mezőt ki kell tölteni!", null);
-            return;
-        }
+			MessageBox.alert("Hiba", "Az első két mezőt ki kell tölteni!", null);
+			return;
+		}
 		
 		// check if the num2 is negative
 		if (num2 instanceof Double && (Double) num2 < 0) {

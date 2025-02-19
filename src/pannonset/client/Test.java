@@ -16,6 +16,9 @@ import pannonset.client.panels.Feladat4;
 import pannonset.client.panels.Feladat5;
 import pannonset.client.panels.Feladat6;
 import pannonset.client.panels.Feladat7;
+import pannonset.client.panels.Feladat8;
+import pannonset.client.panels.Feladat9;
+import pannonset.client.panels.Feladat10;
 
 public class Test implements EntryPoint {
 
@@ -39,6 +42,9 @@ public class Test implements EntryPoint {
 		tp.add(new Feladat5("5.feladat"));
 		tp.add(new Feladat6("6.feladat"));
 		tp.add(new Feladat7("7.feladat"));
+		tp.add(new Feladat8("8.feladat"));
+		tp.add(new Feladat9("9.feladat"));
+		tp.add(new Feladat10("10.feladat"));
 		
 		tp.setSelection(tp.getItem(tp.getItemCount() -1)); // mindig a legutolsó legyen megnyitva alapból
 
