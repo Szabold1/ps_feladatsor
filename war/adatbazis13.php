@@ -31,7 +31,7 @@ if ($method === "GET") {
     $queryData = [$limit, $offset];
     $data = $db->getAll($query, $queryData);
 
-    $totalCount = $db->getOne("SELECT COUNT(*) FROM grid_test");
+    $totalCount = $db->getOne("SELECT COUNT(*) FROM grid_test $queryFilter");
 
     $dataToSend = [
         "totalCount" => intval($totalCount),
