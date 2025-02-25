@@ -89,27 +89,7 @@ public class Feladat14 extends TabItem {
 		
 		ContentPanel cp = createContentPanel();
 		
-		sm = new CheckBoxSelectionModel<ModelData>() {
-			@Override
-			public void deselectAll() {
-				super.deselectAll();
-			}
-			
-			@Override
-			public void selectAll() {
-				super.selectAll();
-			}
-			
-			@Override
-			protected void doDeselect(List<ModelData> models, boolean suppressEvent) {
-				super.doDeselect(models, suppressEvent);
-			}
-			
-			@Override
-			protected void doSelect(List<ModelData> models, boolean keepExisting, boolean suppressEvent) {
-				super.doSelect(models, keepExisting, suppressEvent);
-			}
-		};
+		sm = new CheckBoxSelectionModel<ModelData>();
 		
 		List<ColumnConfig> columns = defineColumns();
 		
